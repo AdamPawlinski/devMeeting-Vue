@@ -1,42 +1,37 @@
 <template>
-  <h1>Fruit list</h1>
-  <fruit-list :list="list" @onRemove="handleRemove"></fruit-list>
-  <add-fruit @onAddFruit="handleAddFruit"></add-fruit>
+  <div id="app">
+    <h1>Fruit list</h1>
+    <fruit-list :list="sharedState.list" @onRemove="handleRemove"></fruit-list>
+    <add-fruit @onAddFruit="handleAddFruit"></add-fruit>
+  </div>
 </template>
 <script>
-export default {
-  import FruitList from 'FruitList';
-  import AddList from 'AddFruit';
-  name: 'app'
-  components: {
-    FruitList,
-    AddList
-  },
-  data(){
-    list: [{
-        id: 0,
-        name: 'orange'
-      }
-      {
-        id: 1,
-        name: 'kiwi'
-      }
-      {
-        id: 2,
-        name: 'banana'
-      }
-    ]
-  }
-    methods: {
-      handleRemove(index){
-        this.list.splice(index, 1)
-      }
-      handleAddFruit(fruit){
-        this.list.push(fruit);
+  import FruitList from 'fruitList';
+  import AddFruit from 'addFruit';
+  import store from index.js;  
+  export default {
+    name: 'app',
+    components: {
+      FruitList,
+      AddFruit
+    },
+    created(){
+      store.fetchFruit();
+    }
+    data(){
+      return: {
+        sheredState: store.state
       }
     }
-  }
-
+      methods: {
+        handleRemove(index){
+          this.list.splice(index, 1)
+        }
+        handleAddFruit(fruit){
+          storeAddFruit(fruit);
+        }
+      }
+    }
 </script>
 <style>
   #app template{
